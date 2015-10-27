@@ -69,7 +69,15 @@ $(document).ready(function() {
   var REPLACEABLE = null;
 
   // set initial text
-  $text.val(SAMPLE_TEXT);
+  $.get("http://api.icndb.com/jokes/random?firstName=John&amp;lastName=Doe", function(data, status){
+        $text.val(SAMPLE_TEXT);
+        if(status==200){
+          $jokeResponse = JSON.parse(data);
+          if($jokeResponse.type == "success"){
+            $text.val(jokeResponse.value.joke);
+          }
+        }
+    }
 
   function onAPIError(xhr) {
     var error;
